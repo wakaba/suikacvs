@@ -14,7 +14,11 @@ updatenightly: local/bin/pmbp.pl
 
 deps: deps-server deps-data
 
-deps-server: git-submodules pmbp-install
+deps-server: git-submodules pmbp-install viewvc
+
+viewvc:
+	tar zvxf viewvc-*.tar.gz
+	mv viewvc-* viewvc
 
 git-submodules:
 	$(GIT) submodule update --init
