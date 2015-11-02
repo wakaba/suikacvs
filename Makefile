@@ -21,6 +21,11 @@ viewvc:
 	cd local && tar zxf viewvc-*.tar.gz
 	mv local/viewvc-* local/viewvc
 
+cvsgraph:
+	mkdir -p local
+	cd local && tar zxf cvsgraph-*.tar.gz
+	cd local/cvsgraph-*/ && sh configure && make && make install
+
 suika-viewvc:
 	git clone https://bitbucket.org/wakabatan/suika-viewvc suika-viewvc
 
