@@ -39,7 +39,10 @@ deps-data:
 	$(WGET) -O local/cvs-suikacvs-misc.tar.gz https://www.dropbox.com/s/5p4xsdl2z4d7bux/cvs-suikacvs-misc.tar.gz?dl=1
 	$(WGET) -O local/cvs-suikacvs-webroot.tar.gz https://www.dropbox.com/s/5p4xsdl2z4d7bux/cvs-suikacvs-webroot.tar.gz?dl=1
 	$(WGET) -O local/cvs-suikawiki.tar.gz https://www.dropbox.com/s/5p4xsdl2z4d7bux/cvs-suikawiki.tar.gz?dl=1
-	cd local && tar zxf cvs-*.tar.gz
+	cd local && tar zxf cvs-pub.tar.gz
+	cd local && tar zxf cvs-suikacvs-misc.tar.gz
+	cd local && tar zxf cvs-suikacvs-webroot.tar.gz
+	cd local && tar zxf cvs-suikawiki.tar.gz
 	mkdir -p local/data
 	mv local/data1/cvs/pub local/data
 
