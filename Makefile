@@ -34,6 +34,7 @@ pmbp-install: pmbp-upgrade
             --create-perl-command-shortcut @prove
 
 deps-data:
+	mkdir -p local
 	$(WGET) -O local/cvs-suikawiki.tar.gz https://www.dropbox.com/s/5p4xsdl2z4d7bux/cvs-suikawiki.tar.gz?dl=1
 	$(WGET) -O local/cvs-suikacvs-webroot.tar.gz https://www.dropbox.com/s/5p4xsdl2z4d7bux/cvs-suikacvs-webroot.tar.gz?dl=1
 	$(WGET) -O local/cvs-suikawiki.tar.gz https://www.dropbox.com/s/5p4xsdl2z4d7bux/cvs-suikawiki.tar.gz?dl=
