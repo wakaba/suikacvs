@@ -7,7 +7,7 @@ dependencies:
     - git config --global user.name "CircleCI"
     - make deps-data
     - docker info
-    - docker build -t quay.io/wakaba/suikacvs
+    - docker build -t quay.io/wakaba/suikacvs .
 test:
   override:
     - echo
