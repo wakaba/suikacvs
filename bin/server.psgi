@@ -43,6 +43,9 @@ return sub {
       } else {
         unshift @$path, 'suikacvs';
       }
+      if (@$path >= 2 and $path->[0] eq 'suikacvs' and $path->[1] eq 'suikawiki') {
+        $path->[0] = 'pub';
+      }
       my $cmd = Promised::Command->new (['python', $RootPath->child ("local/bin/viewvc.cgi")]);
       $cmd->envs->{REQUEST_METHOD} = $app->http->request_method;
       $cmd->envs->{QUERY_STRING} = $app->http->original_url->{query};

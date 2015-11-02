@@ -48,7 +48,9 @@ pmbp-install: pmbp-upgrade
             --create-perl-command-shortcut @prove \
             --create-perl-command-shortcut @plackup=perl\ modules/twiggy-packed/script/plackup
 
-deps-data:
+deps-data: deps-data-misc deps-data-sw
+
+deps-data-misc:
 	mkdir -p local
 	$(WGET) -O local/cvs-pub.tar.gz https://www.dropbox.com/s/5oujy6bzvm176ih/cvs-pub.tar.gz?dl=1
 	$(WGET) -O local/cvs-suikacvs-misc.tar.gz https://www.dropbox.com/s/tprmwtbecx09r77/cvs-suikacvs-misc.tar.gz?dl=1
@@ -59,6 +61,11 @@ deps-data:
 	cd local && tar zxf cvs-suikacvs-webroot.tar.gz
 	cd local && tar zxf cvs-suikawiki.tar.gz
 	mv local/data1/cvs local/cvsrepo
+
+deps-data-sw:
+	git clone https://github.com/suikawiki/suikawiki-data
+	mv suikawiki-data/sw3cvs local/cvsrepo/pub/suikawiki/wikidata
+	mv suikawiki-data/sw4cvs local/cvsrepo/pub/suikawiki/sw4data
 
 ## ------ Tests ------
 
