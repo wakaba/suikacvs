@@ -35,9 +35,9 @@ pmbp-install: pmbp-upgrade
 
 deps-data:
 	mkdir -p local
-	$(WGET) -O local/cvs-suikawiki.tar.gz https://www.dropbox.com/s/5p4xsdl2z4d7bux/cvs-suikawiki.tar.gz?dl=1
+	$(WGET) -O local/cvs-pub.tar.gz https://www.dropbox.com/s/5p4xsdl2z4d7bux/cvs-pub.tar.gz?dl=1
+	$(WGET) -O local/cvs-suikacvs-misc.tar.gz https://www.dropbox.com/s/5p4xsdl2z4d7bux/cvs-suikacvs-misc.tar.gz?dl=1
 	$(WGET) -O local/cvs-suikacvs-webroot.tar.gz https://www.dropbox.com/s/5p4xsdl2z4d7bux/cvs-suikacvs-webroot.tar.gz?dl=1
-	$(WGET) -O local/cvs-suikawiki.tar.gz https://www.dropbox.com/s/5p4xsdl2z4d7bux/cvs-suikawiki.tar.gz?dl=
 	$(WGET) -O local/cvs-suikawiki.tar.gz https://www.dropbox.com/s/5p4xsdl2z4d7bux/cvs-suikawiki.tar.gz?dl=1
 	cd local && tar zxf cvs-*.tar.gz
 	mkdir -p local/data
