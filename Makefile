@@ -12,7 +12,9 @@ updatenightly: local/bin/pmbp.pl
 
 ## ------ Setup ------
 
-deps: git-submodules pmbp-install deps-data
+deps: deps-server deps-data
+
+deps-server: git-submodules pmbp-install
 
 git-submodules:
 	$(GIT) submodule update --init
@@ -37,6 +39,8 @@ deps-data:
 	$(WGET) -O local/cvs-suikawiki.tar.gz https://www.dropbox.com/s/5p4xsdl2z4d7bux/cvs-suikawiki.tar.gz?dl=
 	$(WGET) -O local/cvs-suikawiki.tar.gz https://www.dropbox.com/s/5p4xsdl2z4d7bux/cvs-suikawiki.tar.gz?dl=1
 	cd local && tar zxf cvs-*.tar.gz
+	mkdir -p local/data
+	mv local/data1/cvs/pub local/data
 
 ## ------ Tests ------
 
