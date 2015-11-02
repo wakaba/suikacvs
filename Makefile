@@ -18,8 +18,8 @@ deps-server: git-submodules pmbp-install viewvc suika-viewvc deps-server-main
 
 viewvc:
 	mkdir -p local
-	$(WGET) -O $@ local/viewvc.tar.gz https://github.com/wakaba/suikacvs/blob/master/viewvc-1.1.24.tar.gz?raw=true
-	cd local && tar zxf viewvc-*.tar.gz
+	$(WGET) -O local/viewvc.tar.gz https://github.com/wakaba/suikacvs/blob/master/viewvc-1.1.24.tar.gz?raw=true
+	cd local && tar zxf viewvc.tar.gz
 	mv local/viewvc-* local/viewvc
 
 suika-viewvc:
