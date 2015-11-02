@@ -4,7 +4,6 @@ ADD Makefile /app/
 ADD bin/ /app/bin/
 ADD local/cvsrepo/ /app/local/cvsrepo/
 ADD config/ /app/config/
-ADD viewvc/ /app/viewvc/
 
 RUN cd /app && \
     git init && \
