@@ -1,6 +1,7 @@
 FROM quay.io/wakaba/docker-perl-app-base
 
 ADD .git/ /app/.git/
+ADD .gitmodules .gitmodules
 ADD Makefile /app/
 ADD bin/ /app/bin/
 ADD local/cvsrepo/ /app/local/cvsrepo/
