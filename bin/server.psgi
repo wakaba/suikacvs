@@ -31,7 +31,6 @@ return sub {
       return $app->send_redirect (join '/', "/gate/cvs/*docroot*", map { percent_encode_c $_ } @$path[3..$#$path]);
     } elsif (@$path >= 3 and $path->[0] eq 'gate' and $path->[1] eq 'cvs') {
       my $cmd = Promised::Command->new (['python', $RootPath->child ("local/bin/viewvc.cgi")]);
-      $cmd->envs->{PYTHONPATH} = 'viewvc/lib/';
       $cmd->envs->{REQUEST_METHOD} = $app->http->request_method;
       $cmd->envs->{QUERY_STRING} = $app->http->original_url->{query};
       $cmd->envs->{CONTENT_LENGTH} = $app->http->request_body_length;
@@ -39,6 +38,7 @@ return sub {
       $cmd->envs->{HTTP_ACCEPT_LANGUAGE} = $app->http->get_request_header ('Accept-Language');
       $cmd->envs->{PATH_INFO} = join '/', '', @$path[2..$#$path];
       $cmd->envs->{SCRIPT_NAME} = '/gate/cvs';
+      $cmd->envs->{PYTHONPATH} = 'local/viewvc/lib/';
       $cmd->stdin ($app->http->request_body_as_ref);
       my $stdout = '';
       my $out_mode = '';

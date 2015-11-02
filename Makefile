@@ -17,15 +17,16 @@ deps: deps-server deps-data
 deps-server: git-submodules pmbp-install viewvc suika-viewvc deps-server-main
 
 viewvc:
-	tar zvxf viewvc-*.tar.gz
-	mv viewvc-* viewvc
+	tar zxf viewvc-*.tar.gz
+	mkdir -p local
+	mv viewvc-* local/viewvc
 
 suika-viewvc:
 	git clone https://bitbucket.org/wakabatan/suika-viewvc suika-viewvc
 
 deps-server-main:
 	mkdir -p local/bin local/conf
-	cat viewvc/bin/cgi/viewvc.cgi | sed -e 's/CONF_PATHNAME = None/CONF_PATHNAME = r"'`pwd | sed -e 's/\\//\\\\\\//g'`'\/local\/conf\/viewvc.conf"/' > local/bin/viewvc.cgi
+	cat local/viewvc/bin/cgi/viewvc.cgi | sed -e 's/CONF_PATHNAME = None/CONF_PATHNAME = r"'`pwd | sed -e 's/\\//\\\\\\//g'`'\/local\/conf\/viewvc.conf"/' > local/bin/viewvc.cgi
 	cat config/viewvc.conf | sed -e 's/@@ROOT@@/'`pwd | sed -e 's/\\//\\\\\\//g'`'/g' > local/conf/viewvc.conf
 
 git-submodules:
