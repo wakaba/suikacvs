@@ -18,12 +18,12 @@ deps-server: git-submodules pmbp-install viewvc suika-viewvc deps-server-main
 
 viewvc:
 	mkdir -p local
-	cd local && tar zxf viewvc-*.tar.gz
+	cd local && tar zxf ../viewvc-*.tar.gz
 	mv local/viewvc-* local/viewvc
 
 cvsgraph:
 	mkdir -p local
-	cd local && tar zxf cvsgraph-*.tar.gz
+	cd local && tar zxf ../cvsgraph-*.tar.gz
 	cd local/cvsgraph-*/ && sh configure && make && make install
 
 suika-viewvc:
