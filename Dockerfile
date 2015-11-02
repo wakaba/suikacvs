@@ -10,7 +10,8 @@ RUN cd /app && \
     apt-get update && apt-get install -y rcs && \
     make deps-server PMBP_OPTIONS=--execute-system-package-installer && \
     echo '#!/bin/bash' > /server && \
-    echo 'exec /app/bin/server' >> /server && \
+    echo 'cd /app' >> /server && \
+    echo 'exec ./plackup -s Twiggy -p 8080 bin/server.psgi' >> /server && \
     chmod u+x /server && \
     rm -fr /app/.git /app/deps /app/t /app/t_deps && \
     rm -rf /var/lib/apt/lists/*
