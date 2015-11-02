@@ -17,8 +17,7 @@ deps: deps-server deps-data
 deps-server: git-submodules pmbp-install viewvc suika-viewvc deps-server-main
 
 viewvc:
-	tar zvxf viewvc-*.tar.gz
-	mv viewvc-* viewvc
+	sh -c 'tar zvxf viewvc-*.tar.gz && mv viewvc-* viewvc'
 
 suika-viewvc:
 	git clone https://bitbucket.org/wakabatan/suika-viewvc suika-viewvc
