@@ -52,7 +52,7 @@ return sub {
       $cmd->envs->{CONTENT_LENGTH} = $app->http->request_body_length;
       $cmd->envs->{CONTENT_TYPE} = $app->http->get_request_header ('Content-Type');
       $cmd->envs->{HTTP_ACCEPT_LANGUAGE} = $app->http->get_request_header ('Accept-Language');
-      $cmd->envs->{PATH_INFO} = join '/', '', @$path[2..$#$path];
+      $cmd->envs->{PATH_INFO} = join '/', '', @$path;
       $cmd->envs->{SCRIPT_NAME} = '/gate/cvs';
       $cmd->envs->{PYTHONPATH} = 'local/viewvc/lib/';
       $cmd->stdin ($app->http->request_body_as_ref);
