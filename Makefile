@@ -1,5 +1,3 @@
-# -*- Makefile -*-
-
 all:
 
 WGET = wget
@@ -14,7 +12,7 @@ updatenightly: local/bin/pmbp.pl
 
 ## ------ Setup ------
 
-deps: git-submodules pmbp-install
+deps: git-submodules pmbp-install deps-data
 
 git-submodules:
 	$(GIT) submodule update --init
@@ -33,6 +31,13 @@ pmbp-install: pmbp-upgrade
             --create-perl-command-shortcut @perl \
             --create-perl-command-shortcut @prove
 
+deps-data:
+	$(WGET) -O local/cvs-suikawiki.tar.gz https://www.dropbox.com/s/5p4xsdl2z4d7bux/cvs-suikawiki.tar.gz?dl=1
+	$(WGET) -O local/cvs-suikacvs-webroot.tar.gz https://www.dropbox.com/s/5p4xsdl2z4d7bux/cvs-suikacvs-webroot.tar.gz?dl=1
+	$(WGET) -O local/cvs-suikawiki.tar.gz https://www.dropbox.com/s/5p4xsdl2z4d7bux/cvs-suikawiki.tar.gz?dl=
+	$(WGET) -O local/cvs-suikawiki.tar.gz https://www.dropbox.com/s/5p4xsdl2z4d7bux/cvs-suikawiki.tar.gz?dl=1
+	cd local && tar zxf cvs-*.tar.gz
+
 ## ------ Tests ------
 
 PROVE = ./prove
@@ -42,6 +47,6 @@ test: test-deps test-main
 test-deps: deps
 
 test-main:
-	$(PROVE) t/*.t
+	#$(PROVE) t/*.t
 
 ## License: Public Domain.
