@@ -19,7 +19,7 @@ return sub {
   my $app = Warabe::App->new_from_http ($http);
 
   return $app->execute_by_promise (sub {
-    my $path = $app->path_segments;
+    my $path = [@{$app->path_segments}];
 
     #$http->set_response_header
     #    ('Strict-Transport-Security' => 'max-age=2592000; includeSubDomains; preload');
@@ -28,8 +28,21 @@ return sub {
         (@$path == 2 and $path->[0] eq 'gate' and $path->[1] eq 'cvs')) {
       return $app->send_redirect ('/gate/cvs/');
     } elsif (@$path >= 4 and $path->[0] eq 'gate' and $path->[1] eq 'viewvc' and $path->[2] eq 'statics') {
-      return $app->send_redirect (join '/', "/gate/cvs/*docroot*", map { percent_encode_c $_ } @$path[3..$#$path]);
-    } elsif (@$path >= 3 and $path->[0] eq 'gate' and $path->[1] eq 'cvs') {
+      $path->[1] = 'cvs';
+      $path->[2] = '*docroot*';
+    }
+    if (@$path >= 3 and $path->[0] eq 'gate' and $path->[1] eq 'cvs') {
+      shift @$path;
+      shift @$path;
+      if ($path->[0] eq '*checkout*') {
+        unshift @$path, 'suikacvs';
+      } elsif ($path->[0] eq '*docroot*') {
+        #
+      } elsif ($path->[0] eq 'melon') {
+        shift @$path;
+      } else {
+        unshift @$path, 'suikacvs';
+      }
       my $cmd = Promised::Command->new (['python', $RootPath->child ("local/bin/viewvc.cgi")]);
       $cmd->envs->{REQUEST_METHOD} = $app->http->request_method;
       $cmd->envs->{QUERY_STRING} = $app->http->original_url->{query};
