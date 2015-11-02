@@ -14,11 +14,19 @@ updatenightly: local/bin/pmbp.pl
 
 deps: deps-server deps-data
 
-deps-server: git-submodules pmbp-install viewvc
+deps-server: git-submodules pmbp-install viewvc suika-viewvc deps-server-main
 
 viewvc:
 	tar zvxf viewvc-*.tar.gz
 	mv viewvc-* viewvc
+
+suika-viewvc:
+	git clone https://bitbucket.org/wakabatan/suika-viewvc suika-viewvc
+
+deps-server-main:
+	mkdir -p local/bin local/conf
+	cat viewvc/bin/cgi/viewvc.cgi | sed -e 's/CONF_PATHNAME = None/CONF_PATHNAME = r"'`pwd | sed -e 's/\\//\\\\\\//g'`'\/local\/conf\/viewvc.conf"/' > local/bin/viewvc.cgi
+	cat config/viewvc.conf | sed -e 's/@@ROOT@@/'`pwd | sed -e 's/\\//\\\\\\//g'`'/g' > local/conf/viewvc.conf
 
 git-submodules:
 	$(GIT) submodule update --init
@@ -35,7 +43,8 @@ pmbp-update: git-submodules pmbp-upgrade
 pmbp-install: pmbp-upgrade
 	perl local/bin/pmbp.pl $(PMBP_OPTIONS) --install \
             --create-perl-command-shortcut @perl \
-            --create-perl-command-shortcut @prove
+            --create-perl-command-shortcut @prove \
+            --create-perl-command-shortcut @plackup=perl\ modules/twiggy-packed/script/plackup
 
 deps-data:
 	mkdir -p local
@@ -47,8 +56,7 @@ deps-data:
 	cd local && tar zxf cvs-suikacvs-misc.tar.gz
 	cd local && tar zxf cvs-suikacvs-webroot.tar.gz
 	cd local && tar zxf cvs-suikawiki.tar.gz
-	mkdir -p local/data
-	mv local/data1/cvs/pub local/data
+	mv local/data1/cvs local/cvsrepo
 
 ## ------ Tests ------
 

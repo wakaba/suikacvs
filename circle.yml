@@ -10,11 +10,12 @@ dependencies:
     - docker build -t quay.io/wakaba/suikacvs .
 test:
   override:
-    - echo
-    #XXX
-    #- docker run --name server -d -p 5511:8080 quay.io/wakaba/suikacvs /server; sleep 10
-    #- curl http://localhost:5511
-    #- docker logs server
+    - docker run --name server -d -p 5511:8080 quay.io/wakaba/suikacvs /server; sleep 10
+    - curl http://localhost:5511
+    - curl http://localhost:5511/gate/cvs/
+    - curl http://localhost:5511/gate/cvs/pub/
+    - curl http://localhost:5511/gate/cvs/suikacvs/
+    - docker logs server
 
 deployment:
   cvs:
