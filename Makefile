@@ -60,6 +60,7 @@ deps-data-misc:
 	cd local && tar zxf cvs-suikacvs-misc.tar.gz
 	cd local && tar zxf cvs-suikacvs-webroot.tar.gz
 	cd local && tar zxf cvs-suikawiki.tar.gz
+	rm -fr local/data1/cvs/suikacvs/serverconf
 	mv local/data1/cvs local/cvsrepo
 
 deps-data-sw:
