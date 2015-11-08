@@ -34,17 +34,74 @@ return sub {
     if (@$path >= 3 and $path->[0] eq 'gate' and $path->[1] eq 'cvs') {
       shift @$path;
       shift @$path;
+      
+      my $redirect = 0;
       if ($path->[0] eq '*checkout*') {
-        unshift @$path, 'suikacvs';
+        splice @$path, 1, 0, ('suikacvs');
+        $redirect = 1;
       } elsif ($path->[0] eq '*docroot*') {
         #
       } elsif ($path->[0] eq 'melon') {
         shift @$path;
       } else {
         unshift @$path, 'suikacvs';
+        $redirect = 1;
       }
-      if (@$path >= 2 and $path->[0] eq 'suikacvs' and $path->[1] eq 'suikawiki') {
-        $path->[0] = 'pub';
+      if ($path->[0] eq 'suikacvs') {
+        if (@$path >= 2 and $path->[1] eq 'suikawiki') {
+          $path->[0] = 'pub';
+          $redirect = 1;
+        }
+        #Redirect 301 /gate/cvs/newsportal/	http://suika.fam.cx/gate/cvs/messaging/newsportal/
+        if (@$path >= 2 and $path->[1] eq 'newsportal') {
+          splice @$path, 1, 0, ('messaging');
+          $redirect = 1;
+        }
+        #Redirect 301 /gate/cvs/perl/lib/Char/InSet/	http://suika.fam.cx/gate/cvs/perl/charclass/lib/Char/Class/
+        if (@$path >= 5 and $path->[1] eq 'perl' and $path->[2] eq 'lib' and $path->[3] eq 'Char' and $path->[4] eq 'InSet') {
+          $path->[4] = 'Class';
+          splice @$path, 2, 0, ('charclass');
+          $redirect = 1;
+        }
+        #Redirect 301 /gate/cvs/perl/lib/Char/	http://suika.fam.cx/gate/cvs/perl/charclass/lib/Char/
+        if (@$path >= 4 and $path->[1] eq 'perl' and $path->[2] eq 'lib' and $path->[3] eq 'Char') {
+          splice @$path, 2, 0, ('charclass');
+          $redirect = 1;
+        }
+        #Redirect 301 /gate/cvs/perl/lib/Message/	http://suika.fam.cx/gate/cvs/messaging/manakai/lib/Message/
+        if (@$path >= 4 and $path->[1] eq 'perl' and $path->[2] eq 'lib' and $path->[3] eq 'Message') {
+          splice @$path, 2, 1, ('messaging', 'manakai');
+          $redirect = 1;
+        }
+        #Redirect 301 /gate/cvs/perl/web/Message-pm/	http://suika.fam.cx/gate/cvs/messaging/manakai/doc/
+        if (@$path >= 4 and $path->[1] eq 'perl' and $path->[2] eq 'web' and $path->[3] eq 'Message-pm') {
+          $path->[1] = 'messaging';
+          $path->[2] = 'manakai';
+          $path->[3] = 'doc';
+          $redirect = 1;
+        }
+        #Redirect 301 /gate/cvs/tool/bunshin/	http://suika.fam.cx/gate/cvs/messaging/bunshin/
+        #Redirect 301 /gate/cvs/tool/suikawari/	http://suika.fam.cx/gate/cvs/messaging/suikawari/
+        if (@$path >= 3 and $path->[1] eq 'tool' and ($path->[2] eq 'bunshin' or $path->[2] eq 'suikawari')) {
+          $path->[1] = 'messaging';
+          $redirect = 1;
+        }
+        #Redirect 301 /gate/cvs/tool/iemenu/	http://suika.fam.cx/gate/cvs/www/ie/iemenu/
+        if (@$path >= 3 and $path->[1] eq 'tool' and $path->[2] eq 'iemenu') {
+          splice @$path, 1, 1, ('www', 'ie');
+          $redirect = 1;
+        }
+        #Redirect 301 /gate/cvs/wakaba/wiki/SuikaWiki/ http://suika.fam.cx/gate/cvs/suikawiki/script/lib/SuikaWiki/
+        if (@$path >= 4 and $path->[1] eq 'wakaba' and $path->[2] eq 'wiki' and $path->[3] eq 'SuikaWiki') {
+          splice @$path, 1, 2, ('suikawiki', 'script', 'lib');
+          $redirect = 1;
+        }
+      } # suikacvs
+      if ($redirect) {
+        my $url = '/'.(join '/', map { percent_encode_c $_ } 'gate', 'cvs', 'melon', @$path);
+        $url .= '?' . $app->http->url->{query}
+            if defined $app->http->url->{query};
+        return $app->send_redirect ($url);
       }
       my $cmd = Promised::Command->new (['python', $RootPath->child ("local/bin/viewvc.cgi")]);
       $cmd->envs->{REQUEST_METHOD} = $app->http->request_method;
