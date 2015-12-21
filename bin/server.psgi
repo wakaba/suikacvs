@@ -21,8 +21,8 @@ return sub {
   return $app->execute_by_promise (sub {
     my $path = [@{$app->path_segments}];
 
-    #$http->set_response_header
-    #    ('Strict-Transport-Security' => 'max-age=2592000; includeSubDomains; preload');
+    $http->set_response_header
+        ('Strict-Transport-Security' => 'max-age=10886400; includeSubDomains; preload');
 
     if ((@$path == 1 and $path->[0] eq '') or
         (@$path == 2 and $path->[0] eq 'gate' and $path->[1] eq 'cvs')) {
