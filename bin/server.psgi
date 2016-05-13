@@ -140,6 +140,8 @@ return sub {
           $app->http->send_response_body_as_ref (\$stdout);
         }
       });
+      $cmd->timeout (60);
+      $cmd->timeout_signal ('KILL');
       return $cmd->run->then (sub {
         return $cmd->wait;
       })->then (sub {
