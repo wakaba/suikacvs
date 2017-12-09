@@ -52,19 +52,16 @@ deps-data: deps-data-misc deps-data-sw
 
 deps-data-misc:
 	mkdir -p local
-	$(WGET) -O local/cvs-pub.tar.gz https://www.dropbox.com/s/5oujy6bzvm176ih/cvs-pub.tar.gz?dl=1
-	$(WGET) -O local/cvs-suikacvs-misc.tar.gz https://www.dropbox.com/s/tprmwtbecx09r77/cvs-suikacvs-misc.tar.gz?dl=1
-	$(WGET) -O local/cvs-suikacvs-webroot.tar.gz https://www.dropbox.com/s/8ma5xw7cb0qe4fs/cvs-suikacvs-webroot.tar.gz?dl=1
-	$(WGET) -O local/cvs-suikawiki.tar.gz https://www.dropbox.com/s/5p4xsdl2z4d7bux/cvs-suikawiki.tar.gz?dl=1
-	cd local && tar zxf cvs-pub.tar.gz
-	cd local && tar zxf cvs-suikacvs-misc.tar.gz
-	cd local && tar zxf cvs-suikacvs-webroot.tar.gz
-	cd local && tar zxf cvs-suikawiki.tar.gz
+	git clone https://bitbucket.org/wakabatan/suikaweb-pubdata.git local/pubdata --depth 1
+	cd local && tar zxf pubdata/cvs-pub.tar.gz
+	cd local && tar zxf pubdata/cvs-suikacvs-misc.tar.gz
+	cd local && tar zxf pubdata/cvs-suikacvs-webroot.tar.gz
+	cd local && tar zxf pubdata/cvs-suikawiki.tar.gz
 	rm -fr local/data1/cvs/suikacvs/serverconf
 	mv local/data1/cvs local/cvsrepo
 
 deps-data-sw:
-	git clone https://github.com/suikawiki/suikawiki-data
+	git clone https://github.com/suikawiki/suikawiki-data --depth 1
 	mv suikawiki-data/sw3cvs local/cvsrepo/pub/suikawiki/wikidata
 	mv suikawiki-data/sw4cvs local/cvsrepo/pub/suikawiki/sw4data
 
