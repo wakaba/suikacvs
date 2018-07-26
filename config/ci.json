@@ -1,0 +1,18 @@
+{
+  "circleci": {
+    "docker-build": "quay.io/suikawiki/suikacvs",
+    "build": [
+      "make deps-data viewvc"
+    ],
+    "tests": [
+      "docker run --name server -d -p 5511:8080 quay.io/wakaba/suikacvs /server; sleep 10",
+      "curl -f http://localhost:5511",
+      "curl -f http://localhost:5511/gate/cvs/",
+      "curl -f http://localhost:5511/gate/cvs/pub/",
+      "curl -f http://localhost:5511/gate/cvs/suikacvs/",
+      "docker logs server"
+    ],
+    "merger": true,
+    "gaa": true
+  }
+}
