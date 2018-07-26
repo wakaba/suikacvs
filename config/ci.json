@@ -1,6 +1,6 @@
 {
   "circleci": {
-    "docker-build": "quay.io/suikawiki/suikacvs",
+    "docker-build": "quay.io/wakaba/suikacvs",
     "build": [
       "make deps-data viewvc"
     ],
