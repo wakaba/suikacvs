@@ -9,7 +9,7 @@ Path::Tiny~0.122
 Pod::Simple~3.43
 Pod::Usage~2.01
 Proc::Wait3~0.05
-Scalar::Util~1.60
+Scalar::Util~1.61
 Time::HiRes~1.9764
 Time::Local~1.30
 parent~0.238
