@@ -5,7 +5,7 @@ File::Temp~0.2311
 IO::Handle~1.48
 MIME::Base64~3.16
 Path::Class~0.37
-Path::Tiny~0.142
+Path::Tiny~0.144
 Pod::Simple~3.43
 Pod::Usage~2.03
 Proc::Wait3~0.05
