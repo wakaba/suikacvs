@@ -1,4 +1,4 @@
-AnyEvent::Util
+AnyEvent~7.17
 Carp~1.50
 Exporter::Lite~0.09
 File::Temp~0.2311
@@ -11,5 +11,5 @@ Pod::Usage~2.03
 Proc::Wait3~0.05
 Scalar::Util~1.63
 Time::HiRes~1.9764
-Time::Local~1.30
+Time::Local~1.35
 parent~0.241
