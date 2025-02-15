@@ -53,7 +53,7 @@ deps-data: deps-data-misc deps-data-sw
 
 deps-data-misc:
 	mkdir -p local
-	git clone https://bitbucket.org/wakabatan/suikaweb-pubdata.git local/pubdata --depth 1
+	git clone https://bitbucket.org/suikaserver/suikaweb-pubdata.git local/pubdata --depth 1
 	cd local && tar zxf pubdata/cvs-pub.tar.gz
 	cd local && tar zxf pubdata/cvs-suikacvs-misc.tar.gz
 	cd local && tar zxf pubdata/cvs-suikacvs-webroot.tar.gz
