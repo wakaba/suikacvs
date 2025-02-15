@@ -1,5 +1,9 @@
 FROM debian:10
 
+RUN apt-get update && \
+    DEBIAN_FRONTEND="noninteractive" apt-get -y install sudo git wget curl make gcc build-essential libssl-dev && \
+    rm -rf /var/lib/apt/lists/*
+
 ADD .git/ /app/.git/
 ADD .gitmodules /app/.gitmodules
 ADD Makefile /app/
