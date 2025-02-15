@@ -28,6 +28,7 @@ return sub {
         (@$path == 2 and $path->[0] eq 'gate' and $path->[1] eq 'cvs')) {
       $app->http->set_status (302);
       $app->http->set_response_header ('location', '/gate/cvs/');
+      $app->http->close_response_body;
       return $app->throw;
     } elsif (@$path >= 4 and $path->[0] eq 'gate' and $path->[1] eq 'viewvc' and $path->[2] eq 'statics') {
       $path->[1] = 'cvs';
@@ -105,6 +106,7 @@ return sub {
             if defined $app->http->url->{query};
         $app->http->set_status (302);
         $app->http->set_response_header ('location', $url);
+        $app->http->close_response_body;
         return $app->throw;
       }
       my $cmd = Promised::Command->new (['python', $RootPath->child ("local/bin/viewvc.cgi")]);

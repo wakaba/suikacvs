@@ -1,4 +1,4 @@
-FROM quay.io/wakaba/docker-perl-app-base
+FROM debian:10
 
 ADD .git/ /app/.git/
 ADD .gitmodules /app/.gitmodules
@@ -8,7 +8,7 @@ ADD local/cvsrepo/ /app/local/cvsrepo/
 ADD config/ /app/config/
 
 RUN cd /app && \
-    apt-get update && apt-get install -y rcs python3 && \
+    apt-get update && apt-get install -y rcs python && \
     make deps-server PMBP_OPTIONS=--execute-system-package-installer && \
     echo '#!/bin/bash' > /server && \
     echo 'cd /app' >> /server && \
