@@ -26,7 +26,9 @@ return sub {
 
     if ((@$path == 1 and $path->[0] eq '') or
         (@$path == 2 and $path->[0] eq 'gate' and $path->[1] eq 'cvs')) {
-      return $app->send_redirect ('/gate/cvs/');
+      $app->http->set_status (302);
+      $app->http->set_response_header ('location', '/gate/cvs/');
+      return $app->throw;
     } elsif (@$path >= 4 and $path->[0] eq 'gate' and $path->[1] eq 'viewvc' and $path->[2] eq 'statics') {
       $path->[1] = 'cvs';
       $path->[2] = '*docroot*';
@@ -101,7 +103,9 @@ return sub {
         my $url = '/'.(join '/', map { percent_encode_c $_ } 'gate', 'cvs', 'melon', @$path);
         $url .= '?' . $app->http->url->{query}
             if defined $app->http->url->{query};
-        return $app->send_redirect ($url);
+        $app->http->set_status (302);
+        $app->http->set_response_header ('location', $url);
+        return $app->throw;
       }
       my $cmd = Promised::Command->new (['python', $RootPath->child ("local/bin/viewvc.cgi")]);
       $cmd->envs->{REQUEST_METHOD} = $app->http->request_method;
