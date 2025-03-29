@@ -6,7 +6,7 @@ IO::Handle~1.55
 MIME::Base64~3.16
 Path::Class~0.37
 Path::Tiny~0.148
-Pod::Usage~2.04
+Pod::Usage~2.05
 Proc::Wait3~0.05
 Scalar::Util~1.68
 Time::HiRes~1.9764
